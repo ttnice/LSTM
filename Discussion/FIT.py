@@ -1,9 +1,6 @@
 # https://machinelearningmastery.com/text-generation-lstm-recurrent-neural-networks-python-keras/
 import numpy
-from keras.models import Sequential, load_model
-from keras.layers import Dense, Dropout, LSTM, Conv1D
-from keras.callbacks import ModelCheckpoint
-from keras.utils import np_utils
+import tensorflow as tf
 
 # load ascii text and covert to lowercase
 filename = "DiscussionCorrect.txt"
@@ -35,27 +32,26 @@ X = numpy.reshape(dataX, (n_patterns, seq_length, 1))
 # normalize
 X = X / float(n_vocab)
 # one hot encode the output variable
-y = np_utils.to_categorical(dataY)
+y = tf.keras.utils.np_utils.to_categorical(dataY)
 
 filename = 'Models/weights-improvement-02-2.2078.hdf5'
-model = load_model(filename)
+model = tf.keras.models.load_model(filename)
 # define the LSTM model
 '''
-model = Sequential()
-model.add(LSTM(256, input_shape=(X.shape[1], X.shape[2]), return_sequences=True))
-model.add(Dropout(0.2))
-model.add(Conv1D(filters=32, kernel_size=3, padding='same', activation='relu'))
-model.add(Dense(y.shape[1], activation='softmax'))
-model.add(LSTM(256))
-model.add(Dropout(0.2))
-model.add(Dense(y.shape[1], activation='softmax'))
+model = tf.keras.models.Sequential()
+model.add(tf.keras.layers.LSTM(256, input_shape=(X.shape[1], X.shape[2]), return_sequences=True))
+model.add(tf.keras.layers.Dropout(0.2))
+model.add(tf.keras.layers.Conv1D(filters=32, kernel_size=3, padding='same', activation='relu'))
+model.add(tf.keras.layers.Dense(y.shape[1], activation='softmax'))
+model.add(tf.keras.layers.LSTM(256))
+model.add(tf.keras.layers.Dropout(0.2))
+model.add(tf.keras.layers.Dense(y.shape[1], activation='softmax'))
 '''
 model.compile(loss='categorical_crossentropy', optimizer='adam')
 
 # define the checkpoint
 filepath="Models2/weights-improvement-{epoch:02d}-{loss:.4f}.hdf5"
-checkpoint = ModelCheckpoint(filepath, monitor='loss', verbose=1, save_best_only=True, mode='min')
+checkpoint = tf.keras.callbacks.ModelCheckpoint(filepath, monitor='loss', verbose=1, save_best_only=True, mode='min')
 callbacks_list = [checkpoint]
 
 model.fit(X, y, epochs=20, batch_size=124, callbacks=callbacks_list)
-

@@ -32,7 +32,7 @@ X = numpy.reshape(dataX, (n_patterns, seq_length, 1))
 # normalize
 X = X / float(n_vocab)
 # one hot encode the output variable
-y = tf.keras.utils.np_utils.to_categorical(dataY)
+y = tf.keras.utils.to_categorical(dataY)
 
 filename = 'Models/weights-improvement-02-2.2078.hdf5'
 model = tf.keras.models.load_model(filename)

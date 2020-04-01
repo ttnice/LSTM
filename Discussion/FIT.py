@@ -34,7 +34,7 @@ X = X / float(n_vocab)
 # one hot encode the output variable
 y = tf.keras.utils.to_categorical(dataY)
 
-filename = 'Models/weights-improvement-02-2.2078.hdf5'
+filename = 'Models2/weights-improvement-29-2.8897.hdf5'
 model = tf.keras.models.load_model(filename)
 # define the LSTM model
 '''
@@ -47,11 +47,12 @@ model.add(tf.keras.layers.LSTM(256))
 model.add(tf.keras.layers.Dropout(0.2))
 model.add(tf.keras.layers.Dense(y.shape[1], activation='softmax'))
 '''
+
 model.compile(loss='categorical_crossentropy', optimizer='adam')
 
 # define the checkpoint
-filepath="Models2/weights-improvement-{epoch:02d}-{loss:.4f}.hdf5"
+filepath="Models2/weights-improvement-{(epoch:02d)+29}-{loss:.4f}"
 checkpoint = tf.keras.callbacks.ModelCheckpoint(filepath, monitor='loss', verbose=1, save_best_only=True, mode='min')
 callbacks_list = [checkpoint]
 
-model.fit(X, y, epochs=20, batch_size=124, callbacks=callbacks_list)
+model.fit(X, y, epochs=500, batch_size=124, callbacks=callbacks_list)

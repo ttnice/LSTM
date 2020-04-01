@@ -4,7 +4,7 @@ import tensorflow as tf
 
 
 # load the network weights
-filename = "Models2/weights-improvement-29-2.8897.hdf5"
+filename = "Models/weights-improvement-35-1.2661.h5"
 model = tf.keras.models.load_model(filename)
 
 # load ascii text and covert to lowercase

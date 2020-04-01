@@ -34,8 +34,7 @@ X = X / float(n_vocab)
 # one hot encode the output variable
 y = tf.keras.utils.to_categorical(dataY)
 
-'''
-filename = 'Models2/weights-improvement-29-2.8897.hdf5'
+filename = 'Models/weights-improvement-32-1.2830.h5'
 model = tf.keras.models.load_model(filename)
 # define the LSTM model
 '''
@@ -47,6 +46,7 @@ model.add(tf.keras.layers.Dense(512, activation='softmax'))
 model.add(tf.keras.layers.LSTM(256))
 model.add(tf.keras.layers.Dropout(0.2))
 model.add(tf.keras.layers.Dense(y.shape[1], activation='softmax'))
+'''
 
 model.compile(loss='categorical_crossentropy', optimizer='adam')
 

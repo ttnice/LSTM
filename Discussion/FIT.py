@@ -34,6 +34,7 @@ X = X / float(n_vocab)
 # one hot encode the output variable
 y = tf.keras.utils.to_categorical(dataY)
 
+
 filename = 'Models/weights-improvement-32-1.2830.h5'
 model = tf.keras.models.load_model(filename)
 # define the LSTM model
